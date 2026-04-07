@@ -1,0 +1,44 @@
+.homepage-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+  min-height: 100vh;
+  color: var(--text-color);
+  background-color: var(--primary-background);
+}
+
+.homepage-card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.homepage-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 170px;
+  width: 220px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 4px #fff;
+  transition: transform 0.3s;
+}
+
+.homepage-card:hover {
+  transform: scale(1.05);
+}
+
+.homepage-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: black;
+  font-size: 1.4rem;
+  gap: 10px;
+}
