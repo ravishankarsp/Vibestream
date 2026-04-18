@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 40px;
   min-height: 100vh;
+  width: 100%;
   color: var(--text-color);
   background-color: var(--primary-background);
 }
@@ -14,6 +15,11 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
+  flex-wrap: wrap;
+}
+
+.homepage-title{
+  text-align: center;
 }
 
 .homepage-card {
