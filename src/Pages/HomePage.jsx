@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/HomePage.css";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
+  const navigate = useNavigate()
   const cardDetails = [
     {
       mode: "Happy",
@@ -35,6 +37,7 @@ export default function HomePage() {
             className="homepage-card"
             key={v.mode}
             style={{ backgroundColor: v.color }}
+            onClick={() => navigate(`/${v.mode}`)}
           >
             <div className="homepage-card-content">
               <h1>{v.emoji[Math.floor(Math.random() * v.emoji.length)]}</h1>
