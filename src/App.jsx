@@ -2,12 +2,12 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HeroSection from "./Pages/HeroSection";
 import HomePage from "./Pages/HomePage";
-import HappyPage from "./Pages/HappyPage"
+import HappyPage from "./Pages/HappyPage";
 
 function App() {
   return (
     <>
-      <BrowserRouter basename="/Vibestream">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<HeroSection />} />
           <Route path="/Home" element={<HomePage />} />
