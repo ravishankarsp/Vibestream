@@ -47,7 +47,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 20px;
 }
 
@@ -57,10 +57,20 @@
   border-radius: 20px;
   background-color: var(--action-background);
   box-sizing: border-box;
-  cursor: pointer;
-  transition: transform 0.3s;
 }
 
-.card-container:hover{
-  transform: scale(1.02);
+.playbtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 50%;
+  border-style: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.playbtn:hover{
+  transform: scale(1.08);
+  box-shadow: 0 0 4px white;
 }
