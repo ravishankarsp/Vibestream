@@ -12,38 +12,27 @@ export default function HappyPage() {
   const [player, setPlayer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const playSong = (id) => {
-    if (!player) return;
-    const index = items.findIndex((v) => v.id === id);
-    console.log(index, currentIndex);
-    if (currentIndex === null) setCurrentIndex(0);
-    if (currentIndex === index) {
-      if (isPlaying) {
-        player.pauseVideo();
-        setIsPlaying(false);
-      } else {
-        player.playVideo();
-        setIsPlaying(true);
-      }
+  const playSong = (id, index) => {
+  if (!player) return;
+
+  if (currentIndex === index) {
+    if (isPlaying) {
+      player.pauseVideo();
+      setIsPlaying(false);
     } else {
-      player.loadVideoById(id);
+      player.playVideo();
       setIsPlaying(true);
-      setIsPlayingAll(false);
-      console.log(index);
-      setCurrentIndex(index);
     }
-  };
+  } else {
+    setIsPlayingAll(false);
+    setCurrentIndex(index);
+    player.loadVideoById(id);
+    setIsPlaying(true);
+  }
+};
   const onPlayerStateChange = (event) => {
     if (event.data === window.YT.PlayerState.ENDED) {
-      setCurrentIndex((prev) => {
-        if (prev < items.length - 1) {
-          return prev + 1;
-        } else {
-          setIsPlayingAll(false);
-          setIsPlaying(false);
-          return prev;
-        }
-      });
+      setCurrentIndex((prev) => (prev !== null ? prev + 1 : 0));
     }
     if (event.data === window.YT.PlayerState.PLAYING) {
       setIsPlaying(true);
@@ -76,9 +65,13 @@ export default function HappyPage() {
 
   useEffect(() => {
     if (player && isPlayingAll && items.length > 0) {
-      const videoId = items[currentIndex]?.id;
-      if (videoId) {
-        player.loadVideoById(videoId);
+      if (currentIndex !== null && currentIndex < items.length) {
+        const videoId = items[currentIndex]?.id;
+        if (videoId) {
+          player.loadVideoById(videoId);
+        }
+      } else {
+        setIsPlayingAll(false);
       }
     }
   }, [currentIndex, isPlayingAll, player, items]);
@@ -89,7 +82,6 @@ export default function HappyPage() {
       let data = await fetch(`${URL}/api/happy`);
       let result = await data.json();
       setItems(result.items);
-      console.log(result.items);
     } catch (e) {
       console.log(e.message);
     } finally {
@@ -104,7 +96,7 @@ export default function HappyPage() {
       <div className="happypage-body">
         <div className="happypage-body-content">
           {loading ? (
-            [1, 2, 3, 4, 5].map((_, index) => (
+            [1, 2, 3, 4, 5, 6].map((_, index) => (
               <Skeleton
                 key={index}
                 variant="rectangular"
@@ -125,7 +117,6 @@ export default function HappyPage() {
                     if (player && items.length > 0) {
                       setCurrentIndex(0);
                       setIsPlayingAll(true);
-                      setIsPlaying(true);
                       player.loadVideoById(items[0].id);
                     }
                   }}
@@ -156,7 +147,7 @@ export default function HappyPage() {
                       </div>
                       <button
                         className="playbtn"
-                        onClick={() => playSong(v.id)}
+                        onClick={() => playSong(v.id, index)}
                       >
                         {currentIndex === index && isPlaying ? (
                           <FaPause />
